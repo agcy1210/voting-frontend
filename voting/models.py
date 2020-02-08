@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Voter(models.Model):
-    reference_no  = models.IntegerField()
+    reference_no  = models.CharField(max_length=50)
     unique_hash = models.CharField(max_length=128)
     voter_publickey = models.CharField(max_length=128)
     is_verified = models.BooleanField(default=False)

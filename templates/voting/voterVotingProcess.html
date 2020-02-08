@@ -47,7 +47,7 @@
 					<a class="navbar-brand" href="index-2.html"><img alt="..." class="navbar-brand-img main-logo" src="{% static 'assets/img/elections.png' %}"> <img alt="..." class="navbar-brand-img logo" src="{% static 'assets/img/logo.png' %}"></a>
 					<ul class="side-menu">
 						<li class="slide active is-expanded">
-							<a class="side-menu__item active" href="{% url 'verifyId' %}"><i class="side-menu__icon fas fa-check"></i><span class="side-menu__label">Verify ID</span></a>
+							<a class="side-menu__item active" href="{% url 'secret_msg' %}"><i class="side-menu__icon fas fa-check"></i><span class="side-menu__label">Verify ID</span></a>
 						</li>
 						<li class="slide">
 			              <a class="side-menu__item" href="#"><i class="side-menu__icon fe fe-settings"></i><span class="side-menu__label">About Us</span></a>
@@ -163,7 +163,7 @@
 						<!-- Page content -->
 						<div class="container-fluid pt-8">
 							<div class="page-header mt-0  p-3">
-								<h3 class="mb-sm-0">Authenticate</h3>
+								<h3 class="mb-sm-0">Voting</h3>
 								<ol class="breadcrumb mb-0">
 									<li class="breadcrumb-item"><a href="#"><i class="fe fe-home"></i></a></li>
 									
@@ -174,21 +174,35 @@
 											{% csrf_token%}
 									<div class="card shadow">
 										<div class="card-header">
-											<h2 class="mb-0">Authenticate with your Voter Id</h2>
+											<h2 class="mb-0">Access Voting</h2>
 										</div>
 										<div class="card-body">
 											<div class="row">
 												<div class="col-md-6">
 													<div class="form-group">
-														<label class="form-label">Enter Voter ID</label>
-														<input type="text" class="form-control" name="voterid" id="voterid" placeholder="Voter ID" required>
+														<label class="form-label">Enter Voter Id</label>
+														<input type="text" class="form-control" name="voter_id" placeholder="Voter Id">
+													</div>
+													
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="form-label">Enter Secret Message</label>
+														<input type="text" class="form-control" name="secret_msg" placeholder="Secret Message">
+													</div>
+													
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="form-label">Enter Reference Number</label>
+														<input type="text" class="form-control" name="reference_number" placeholder="Reference Number">
 													</div>
 													
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-md-6">
-														<input type="submit" class="btn btn-secondary mt-4 mb-1" value="Verify" id="voterbtn">
+														<input type="submit" class="btn btn-secondary mt-4 mb-1" id="submitBtn" value="Submit">
 													
 												</div>
 							
@@ -244,48 +258,6 @@
 		function logout() {
 			document.getElementById('logout').submit();
 		}
-
-		$('.validate-form').submit(function(e){
-			e.preventDefault();
-			var voterId = $("#voterid").val();
-			if(voterId !== "") {
-				$.ajax({
-					type: 'POST',
-					url: 'http://localhost:3001/api/publicKey',
-					contentType: "application/json",
-					processData: false,
-					data: JSON.stringify({
-						data: {
-							type: 'voterId',
-							id: voterId
-						}
-					}),
-					success: function(data, textStatus, jqXHR) {
-						var publicKey = data.publicKey;
-						$.ajax({
-							type: 'POST',
-							url: 'http://localhost:3001/api/verify',
-							contentType: "application/json",
-							processData: false,
-							data: JSON.stringify({
-								publicKey,
-								data: {
-									type: 'voterId',
-									id: voterId
-								}
-							}),
-							success: function(data, textStatus, jqXHR) {
-								localStorage.setItem("voterId", voterId);
-								alert("Success");
-								window.location.href = "/secret_msg";
-							}
-						})
-					}
-				});
-			} else {
-				swal("Please enter voterId");
-			}
-		});
 	</script>
 
 </body>

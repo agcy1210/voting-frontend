@@ -4,17 +4,13 @@ from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Voter, Candidate
+from .models import Voter,Candidate
 import hashlib
 
 
 @login_required(login_url='accounts/login')
 def verifyId(request):
-
-    if request.method == 'POST':
-        voterId = request.POST['voterId']
-
-    return render(request, 'voting/voterIdAuthentication.html')
+    return render(request,'voting/voterIdAuthentication.html')
 
 
 def getHash(secret_msg, voter_id):
@@ -30,7 +26,32 @@ def secret_msg(request):
         reference_number = request.POST['reference_number']
         voter_id = request.POST['voter_id']
 
-        hashKey = getHash(hashString, voter_id)
+        hashKey = getHash(secret_msg, voter_id)
         
+        obj = Voter(reference_no = reference_number,unique_hash=hashKey,voter_publickey=voter_id )
+        obj.save()
 
-    return render(request, 'voting/voterIdAuthentication.html')
+    return render(request, 'voting/voterSecretMessage.html')
+
+@login_required(login_url='accounts/login')
+def voting(request):
+    if request.method == 'POST':
+        secret_msg = request.POST['secret_msg']
+        reference_number = request.POST['reference_number']
+        voter_id = request.POST['voter_id']
+
+        queryset =Voter.objects.filter(reference_no= reference_number, voter_publickey=voter_id)[0]
+
+        if queryset:
+            return redirect('voting_candidate')
+        else:
+            return redirect('')
+    else:
+        return render(request,'voting/voterVotingProcess.html')
+
+
+@login_required(login_url='accounts/login')
+def votingCandidate(request):
+    return render(request,'voting/candidateslist.html')
+
+

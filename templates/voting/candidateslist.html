@@ -47,7 +47,7 @@
 					<a class="navbar-brand" href="index-2.html"><img alt="..." class="navbar-brand-img main-logo" src="{% static 'assets/img/elections.png' %}"> <img alt="..." class="navbar-brand-img logo" src="{% static 'assets/img/logo.png' %}"></a>
 					<ul class="side-menu">
 						<li class="slide active is-expanded">
-							<a class="side-menu__item active" href="{% url 'verifyId' %}"><i class="side-menu__icon fas fa-check"></i><span class="side-menu__label">Verify ID</span></a>
+							<a class="side-menu__item active" href="{% url 'secret_msg' %}"><i class="side-menu__icon fas fa-check"></i><span class="side-menu__label">Verify ID</span></a>
 						</li>
 						<li class="slide">
 			              <a class="side-menu__item" href="#"><i class="side-menu__icon fe fe-settings"></i><span class="side-menu__label">About Us</span></a>
@@ -163,39 +163,39 @@
 						<!-- Page content -->
 						<div class="container-fluid pt-8">
 							<div class="page-header mt-0  p-3">
-								<h3 class="mb-sm-0">Authenticate</h3>
+								<h3 class="mb-sm-0">Candidates</h3>
 								<ol class="breadcrumb mb-0">
 									<li class="breadcrumb-item"><a href="#"><i class="fe fe-home"></i></a></li>
 									
 								</ol>
 							</div>
+								<table id="example" class="table table-striped table-bordered w-100 text-nowrap">
+									<thead>
+										<tr>
+											<th class="wd-15p">Candidate ID</th>
+											
+											<th class="wd-20p">Candidate Name</th>
+											<th class="wd-20p">Zone</th>
+											<th class="wd-20p" >Vote</th>
+											
+										</tr>
+									</thead>
+									<tbody>
+										
+										
+										<tr>
+											<td>1</td>
+											<td>XYZ</td>
+											<td>Naroda</td>
+											<td>
+												<a class="btn btn-danger mt-1 mb-1" href="#">Vote</a>
+													
+											</td>
+											
+										</tr>
 									
-									<form class="login100-form validate-form" action="" method="POST">
-											{% csrf_token%}
-									<div class="card shadow">
-										<div class="card-header">
-											<h2 class="mb-0">Authenticate with your Voter Id</h2>
-										</div>
-										<div class="card-body">
-											<div class="row">
-												<div class="col-md-6">
-													<div class="form-group">
-														<label class="form-label">Enter Voter ID</label>
-														<input type="text" class="form-control" name="voterid" id="voterid" placeholder="Voter ID" required>
-													</div>
-													
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-6">
-														<input type="submit" class="btn btn-secondary mt-4 mb-1" value="Verify" id="voterbtn">
-													
-												</div>
-							
-											</div>
-										</div>
-									</div>
-								</form>
+									</tbody>
+								</table>
 
 						
 						</div>	
@@ -244,48 +244,6 @@
 		function logout() {
 			document.getElementById('logout').submit();
 		}
-
-		$('.validate-form').submit(function(e){
-			e.preventDefault();
-			var voterId = $("#voterid").val();
-			if(voterId !== "") {
-				$.ajax({
-					type: 'POST',
-					url: 'http://localhost:3001/api/publicKey',
-					contentType: "application/json",
-					processData: false,
-					data: JSON.stringify({
-						data: {
-							type: 'voterId',
-							id: voterId
-						}
-					}),
-					success: function(data, textStatus, jqXHR) {
-						var publicKey = data.publicKey;
-						$.ajax({
-							type: 'POST',
-							url: 'http://localhost:3001/api/verify',
-							contentType: "application/json",
-							processData: false,
-							data: JSON.stringify({
-								publicKey,
-								data: {
-									type: 'voterId',
-									id: voterId
-								}
-							}),
-							success: function(data, textStatus, jqXHR) {
-								localStorage.setItem("voterId", voterId);
-								alert("Success");
-								window.location.href = "/secret_msg";
-							}
-						})
-					}
-				});
-			} else {
-				swal("Please enter voterId");
-			}
-		});
 	</script>
 
 </body>
