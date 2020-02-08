@@ -33,3 +33,26 @@ def secret_msg(request):
         obj.save()
 
     return render(request, 'voting/voterSecretMessage.html')
+
+@login_required(login_url='accounts/login')
+def voting(request):
+    if request.method == 'POST':
+        secret_msg = request.POST['secret_msg']
+        reference_number = request.POST['reference_number']
+        voter_id = request.POST['voter_id']
+
+        queryset =Voter.objects.filter(reference_no= reference_number, voter_publickey=voter_id)[0]
+
+        if queryset:
+            return redirect('voting_candidate')
+        else:
+            return redirect('')
+    else:
+        return render(request,'voting/voterVotingProcess.html')
+
+
+@login_required(login_url='accounts/login')
+def votingCandidate(request):
+    return render(request,'voting/candidateslist.html')
+
+
