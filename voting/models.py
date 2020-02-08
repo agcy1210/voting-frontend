@@ -1,10 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Voter(models.Model):
     reference_no  = models.CharField(max_length=50)
     unique_hash = models.CharField(max_length=128)
     voter_publickey = models.CharField(max_length=128)
+    isverify = models.BooleanField()   
    
     def __str__(self):
         return self.voter_publickey
@@ -16,8 +18,10 @@ class Candidate(models.Model):
     party_name = models.CharField(max_length=128)
     candidate_publickey =  models.CharField(max_length=128)
 
+
     def __str__(self):
         return self.candidate_name
+
 
 
 

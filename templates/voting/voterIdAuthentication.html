@@ -161,7 +161,16 @@
 						<!-- Top navbar-->
 
 						<!-- Page content -->
-
+						{% if isverify %}
+						<div class="container-fluid pt-8">
+							<div class="card">
+								<div class="card-body">
+									<h1 style="color: green;">&#10004; You are verified successfully and are eligible to vote when the period begins.</h1>
+									<h3>You will be notified when the period begins on your respective email and mobile number.</h3>
+								</div>
+							</div>
+						</div>	
+						{% else %}		
 						<div class="container-fluid pt-8">
 							<div class="page-header mt-0  p-3">
 								<h3 class="mb-sm-0">Authenticate</h3>
@@ -199,15 +208,15 @@
 								</form>
 
 						
-						</div>	
-						
+						</div>
+					{% endif %}
 							
 
 						</div>
 					</div>
 				</div>
 			</div>
-			<div id="particles-js" style="position: absolute; z-index: -1; top: 0%;height: 99%; width: 100%;"><canvas class="particles-js-canvas-el" style="width: 100%; height: 100%;" width="1387" height="893"></canvas></div>
+			
 			<!--app-content-->
 		</div>
 		
@@ -242,8 +251,7 @@
 	<!-- Adon JS -->
 	<script src="{% static 'assets/js/custom.js'%}"></script>
 	<script src="{% static 'assets/js/dashboard-finance.js'%}"></script>
-	<script src="{% static 'assets/js/particles/particles.js'%}"></script>
-	<script src="{% static 'assets/js/particles/app.js'%}"></script>
+	
 	<script src="{% static 'assets/js/select2.js'%}"></script>
 
 	<script>
