@@ -11,7 +11,18 @@ import hashlib
 
 @login_required(login_url='accounts/login')
 def verifyId(request):
-    return render(request,'voting/voterIdAuthentication.html')
+    user = Voter.objects.filter(isverify=True)
+
+    if user:
+        context ={
+            'isverify' : True
+        }
+    else:
+        context ={
+            'isverify' : False
+        }
+
+    return render(request,'voting/voterIdAuthentication.html',context)
 
 
 
@@ -30,7 +41,7 @@ def secret_msg(request):
 
         hashKey = getHash(secret_msg, voter_id)
         
-        obj = Voter(reference_no = reference_number,unique_hash=hashKey,voter_publickey=voter_id )
+        obj = Voter(reference_no = reference_number,unique_hash=hashKey,voter_publickey=voter_id,isverify=True )
         obj.save()
         context = {
             'reference_number': reference_number
