@@ -4,19 +4,21 @@ from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Voter, Candidate
+from .models import Voter,Candidate
 import hashlib
 
 # Create your views here.
 
-
 @login_required(login_url='accounts/login')
-def verifyId(request):
+def authenticate(request):
 
+    # if request.user.is_authenticated:
+    #     return redirect('index')
+    # else:
     if request.method == 'POST':
         voterId = request.POST['voterId']
-
-    return render(request, 'voting/voterIdAuthentication.html')
+            
+    return render(request,'voting/voterIdAuthentication.html')
 
 
 def getHash(secret_msg, voter_id):
