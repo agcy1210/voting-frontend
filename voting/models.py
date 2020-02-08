@@ -12,6 +12,7 @@ class Voter(models.Model):
 
 
 class Candidate(models.Model):
+    candidate_id = models.IntegerField(unique=True)
     candidate_name = models.CharField(max_length=50)
     party_name = models.CharField(max_length=128)
     candidate_publickey =  models.CharField(max_length=128)

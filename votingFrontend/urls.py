@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/',include('accounts.urls')),  
     path('',include('voting.urls')), 
-    path('',views.verifyId,name='index')  
+    path('',views.verifyId,name='index'),
+    path('api/',include('api.urls')),
 ]
