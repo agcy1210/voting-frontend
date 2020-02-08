@@ -13,9 +13,6 @@ import hashlib
 @login_required(login_url='accounts/login')
 def verifyId(request):
 
-    # if request.user.is_authenticated:
-    #     return redirect('index')
-    # else:
     if request.method == 'POST':
         voterId = request.POST['voterId']
 
