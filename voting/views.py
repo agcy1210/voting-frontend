@@ -13,8 +13,6 @@ import hashlib
 def verifyId(request):
     return render(request,'voting/voterIdAuthentication.html')
 
-
-
 def getHash(secret_msg, voter_id):
     hashString = secret_msg + str(voter_id)
     return hashlib.sha256(hashString.encode()).hexdigest()
@@ -58,6 +56,13 @@ def voting(request):
 
 @login_required(login_url='accounts/login')
 def votingCandidate(request):
-    return render(request,'voting/candidateslist.html')
+    queryset = Candidate.objects.all()
+
+
+    context = {
+        "candidates": queryset
+    }
+
+    return render(request,'voting/candidateslist.html', context=context)
 
 
