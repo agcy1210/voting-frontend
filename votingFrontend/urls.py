@@ -20,6 +20,5 @@ from accounts import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/',include('accounts.urls')),  
-    path('voting/',include('voting.urls')), 
-    path('',views.index,name='index')  
+    path('',include('voting.urls')), 
 ]
