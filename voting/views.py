@@ -29,5 +29,7 @@ def secret_msg(request):
 
         hashKey = getHash(secret_msg, voter_id)
         
+        obj = Voter(reference_no = reference_number,unique_hash=hashKey,voter_publickey=voter_id )
+        obj.save()
 
     return render(request, 'voting/voterSecretMessage.html')
