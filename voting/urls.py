@@ -5,6 +5,6 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('authenticate/',views.authenticate,name='authenticate'),
-    path('secretmessage/',views.secretmessage,name='secretmessage'),
+    path('secretmessage/',views.secret_msg,name='secretmessage'),
 
 ]
