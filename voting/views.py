@@ -10,14 +10,7 @@ import hashlib
 # Create your views here.
 
 @login_required(login_url='accounts/login')
-def authenticate(request):
-
-    # if request.user.is_authenticated:
-    #     return redirect('index')
-    # else:
-    if request.method == 'POST':
-        voterId = request.POST['voterId']
-            
+def verifyId(request):
     return render(request,'voting/voterIdAuthentication.html')
 
 
@@ -33,11 +26,11 @@ def secret_msg(request):
         secret_msg = request.POST['secret_msg']
         reference_number = request.POST['reference_number']
         voter_id = request.POST['voter_id']
-
-        hashString = secret_msg+voter_id
         hashKey = getHash(hashString)
 
-        reference_no, unique_hash, vote_publickey
+# obj = ProjectResults(project=context['project'], positive=context['num_of_reviews_sentiment']['positive'], negative=context['num_of_reviews_sentiment']
+#                              ['negative'], neutral=context['num_of_reviews_sentiment']['neutral'], percentages=json.dumps(context['partitionend_sentiments_dict']))
+#         reference_no, unique_hash, vote_publickey
         
 
     return render(request,'voting/voterIdAuthentication.html')
