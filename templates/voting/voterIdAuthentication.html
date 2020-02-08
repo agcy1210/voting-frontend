@@ -188,7 +188,7 @@
 											</div>
 											<div class="row">
 												<div class="col-md-6">
-														<input type="submit" class="btn btn-secondary mt-4 mb-1" value="Add" id="voterbtn">
+														<input type="submit" class="btn btn-secondary mt-4 mb-1" value="Verify" id="voterbtn">
 													
 												</div>
 							
@@ -245,10 +245,46 @@
 			document.getElementById('logout').submit();
 		}
 
-		$('#voterbtn').click(function(){
-			$.ajax({
-
-			});
+		$('.validate-form').submit(function(e){
+			e.preventDefault();
+			var voterId = $("#voterid").val();
+			if(voterId !== "") {
+				$.ajax({
+					type: 'POST',
+					url: 'http://localhost:3001/api/publicKey',
+					contentType: "application/json",
+					processData: false,
+					data: JSON.stringify({
+						data: {
+							type: 'voterId',
+							id: voterId
+						}
+					}),
+					success: function(data, textStatus, jqXHR) {
+						var publicKey = data.publicKey;
+						$.ajax({
+							type: 'POST',
+							url: 'http://localhost:3001/api/verify',
+							contentType: "application/json",
+							processData: false,
+							data: JSON.stringify({
+								publicKey,
+								data: {
+									type: 'voterId',
+									id: voterId
+								}
+							}),
+							success: function(data, textStatus, jqXHR) {
+								localStorage.setItem("voterId", voterId);
+								alert("Success");
+								window.location.href = "/secret_msg";
+							}
+						})
+					}
+				});
+			} else {
+				swal("Please enter voterId");
+			}
 		});
 	</script>
 

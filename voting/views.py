@@ -26,12 +26,8 @@ def secret_msg(request):
         secret_msg = request.POST['secret_msg']
         reference_number = request.POST['reference_number']
         voter_id = request.POST['voter_id']
-        hashKey = getHash(hashString)
 
-# obj = ProjectResults(project=context['project'], positive=context['num_of_reviews_sentiment']['positive'], negative=context['num_of_reviews_sentiment']
-#                              ['negative'], neutral=context['num_of_reviews_sentiment']['neutral'], percentages=json.dumps(context['partitionend_sentiments_dict']))
-#         reference_no, unique_hash, vote_publickey
+        hashKey = getHash(secret_msg, voter_id)
         
 
-    return render(request,'voting/voterIdAuthentication.html')
-
+    return render(request, 'voting/voterSecretMessage.html')
