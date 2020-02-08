@@ -7,8 +7,6 @@ from django.contrib.auth.decorators import login_required
 from .models import Voter, Candidate
 import hashlib
 
-# Create your views here.
-
 
 @login_required(login_url='accounts/login')
 def verifyId(request):
@@ -32,8 +30,7 @@ def secret_msg(request):
         reference_number = request.POST['reference_number']
         voter_id = request.POST['voter_id']
 
-        hashString = secret_msg+voter_id
-        hashKey = getHash(hashString)
+        hashKey = getHash(hashString, voter_id)
         
 
     return render(request, 'voting/voterIdAuthentication.html')

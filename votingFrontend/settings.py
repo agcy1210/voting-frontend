@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'voting',
     'accounts',
     'widget_tweaks',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'api'
 ]
 
 MIDDLEWARE = [
