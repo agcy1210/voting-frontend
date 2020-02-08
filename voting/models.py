@@ -4,7 +4,8 @@ from django.db import models
 class Voter(models.Model):
     reference_no  = models.IntegerField()
     unique_hash = models.CharField(max_length=128)
-    vote_publickey = models.CharField(max_length=128)
+    voter_publickey = models.CharField(max_length=128)
+    is_varified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.voter_publickey
