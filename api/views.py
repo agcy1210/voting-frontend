@@ -11,8 +11,6 @@ class VoterPublickeyApiView(APIView):
     serializer_class = serializers.VoterPublickeySerializer
 
     def post(self, request):
-        """Create hello message with our name """
-
         serializer = serializers.VoterPublickeySerializer(data=request.data)
 
         if serializer.is_valid():
@@ -35,8 +33,6 @@ class CandidatePublickeyApiView(APIView):
     serializer_class = serializers.CandidatePublickeySerializer
 
     def post(self, request):
-        """Create hello message with our name """
-
         serializer = serializers.CandidatePublickeySerializer(data=request.data)
 
 

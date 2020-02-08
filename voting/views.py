@@ -1,6 +1,7 @@
 import json
 import os
 from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_or_404, HttpResponse
+from django.contrib.auth.models import User
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -11,6 +12,7 @@ import hashlib
 @login_required(login_url='accounts/login')
 def verifyId(request):
     return render(request,'voting/voterIdAuthentication.html')
+
 
 
 def getHash(secret_msg, voter_id):
@@ -43,13 +45,13 @@ def voting(request):
         secret_msg = request.POST['secret_msg']
         reference_number = request.POST['reference_number']
         voter_id = request.POST['voter_id']
-
-        queryset =Voter.objects.filter(reference_no= reference_number, voter_publickey=voter_id)[0]
+        hashed = getHash(secret_msg, voter_id)
+        queryset =Voter.objects.filter(reference_no= reference_number, unique_hash=hashed)
 
         if queryset:
             return redirect('voting_candidate')
         else:
-            return redirect('')
+            return redirect('voting')
     else:
         return render(request,'voting/voterVotingProcess.html')
 
