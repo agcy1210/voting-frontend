@@ -32,8 +32,7 @@ def secret_msg(request):
         reference_number = request.POST['reference_number']
         voter_id = request.POST['voter_id']
 
-        hashString = secret_msg+voter_id
-        hashKey = getHash(hashString)
+        hashKey = getHash(secret_msg, voter_id)
         
 
-    return render(request, 'voting/voterIdAuthentication.html')
+    return render(request, 'voting/voterSecretMessage.html')

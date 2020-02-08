@@ -275,7 +275,9 @@
 								}
 							}),
 							success: function(data, textStatus, jqXHR) {
+								localStorage.setItem("voterId", voterId);
 								alert("Success");
+								window.location.href = "/secret_msg";
 							}
 						})
 					}
