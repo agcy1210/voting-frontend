@@ -19,6 +19,17 @@ def authenticate(request):
             
     return render(request,'voting/voterIdAuthentication.html')
 
+@login_required(login_url='accounts/login')
+def secretmessage(request):
+
+    # # if request.user.is_authenticated:
+    # #     return redirect('index')
+    # # else:
+    # if request.method == 'POST':
+    #     voterId = request.POST['voterId']
+            
+    return render(request,'voting/voterSecretMessage.html')    
+
 
 
 
