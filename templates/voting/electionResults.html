@@ -169,8 +169,21 @@
 									
 								</ol>
 							</div>
-							<h1>Election Results will be shown here!</h1>
-						
+							<h1>Election Results</h1>
+							<div class="card">
+								<div class="card-body">
+									{% for el in winner %}
+										<div class="card">
+											{{ el.name }} - {{el.votes}}
+										</div>
+									{% endfor %}
+									<!-- {% for e in winner_counts %}
+									<div class="card">
+										{{ el }}
+									</div>
+									{% endfor %} -->
+								</div>
+							</div>
 						</div>	
 							
 

@@ -4,6 +4,7 @@ from django.contrib import auth
 from .forms import UserRegisterForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+import requests
 
 
 def login(request):
@@ -82,3 +83,8 @@ def profile(request):
 @login_required(login_url='/accounts/login')
 def tables(request):
     return render(request, 'pages/tables.html')
+
+
+
+
+

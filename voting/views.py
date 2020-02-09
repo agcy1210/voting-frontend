@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Voter,Candidate
 import hashlib
+import requests
 
 
 @login_required(login_url='accounts/login')
@@ -76,4 +77,26 @@ def votingCandidate(request):
 
     return render(request,'voting/candidateslist.html', context=context)
 
+def results(request):
+    result= requests.get('http://localhost:3003/api/results')
+    token_json_data = json.loads(result.text)
+    print(token_json_data)
+    results = token_json_data.get('results')
+    querysets = Candidate.objects.all()
+    winner= []
+    winner_counts = []
+    for key,value in results.items():
+        for queryset in querysets:
+            if key == queryset.candidate_publickey:
+                winner.append({
+                       name: queryset.candidate_name,
+                        votes: value
+                })
+    for el in winner:
+        print(el['name'] + " - " + el['votes'])
+    context= {
+        'winner' : winner,
+        'winner_counts': winner_counts
+    }
+    return render(request,'voting/electionResults.html',context)
 
