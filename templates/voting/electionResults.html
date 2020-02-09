@@ -174,7 +174,9 @@
 								<div class="card-body">
 									{% for el in winner %}
 										<div class="card">
-											{{ el.name }} - {{el.votes}}
+											<div class="card-body">
+												{{ el.name }} - {{el.votes}}
+											</div>
 										</div>
 									{% endfor %}
 									<!-- {% for e in winner_counts %}
@@ -235,3 +237,4 @@
 </body>
 
 </html>
+
