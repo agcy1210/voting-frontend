@@ -8,5 +8,4 @@ urlpatterns = [
     path('secret_msg/',views.secret_msg,name='secret_msg'),
     path('voting/',views.voting,name='voting'),
     path('voting/candidate', views.votingCandidate, name='voting_candidate')
-
 ]

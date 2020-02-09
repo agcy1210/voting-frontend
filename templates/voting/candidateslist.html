@@ -184,17 +184,21 @@
 										</thead>
 										<tbody>
 											
-											
+											{% for candidate in candidates %}
 											<tr>
-												<td>1</td>
-												<td>XYZ</td>
+											
+												<td>{{candidate.candidate_id}}</td>
+												<td>{{candidate.candidate_name}}</td>
+											
 												<td>Naroda</td>
 												<td>
-													<a class="btn btn-danger mt-1 mb-1" href="#">Vote</a>
+													<button class="btn btn-danger mt-1 mb-1" id="{{candidate.candidate_publickey}}" onclick="vote(this.id,'{{candidate.candidate_id}}')">Vote</button>
+
 														
 												</td>
 												
 											</tr>
+											{% endfor %}
 										
 										</tbody>
 									</table>	
@@ -248,8 +252,33 @@
 		function logout() {
 			document.getElementById('logout').submit();
 		}
+
+		function vote(pubKey,id){
+			 console.log(pubKey);
+			var referenceNo = localStorage.getItem('reference_number');
+			var fd = new FormData();
+			fd.append("id",id);
+			$.ajax({
+				url:'http://localhost:3003/api/mine/',
+				data:JSON.stringify({
+					data: {
+						data: {
+							candidate_id: id,
+						},
+						candidatePubKey:pubKey,
+						referenceNo: referenceNo
+					},
+				}),
+				method:'POST',
+				processData:false,
+				contentType:"application/json",
+				success:function(data){
+					alert("Vote casted successfully!");
+					window.location.href = "/";
+				}
+			});
+		}
 	</script>
 
 </body>
-
 </html>

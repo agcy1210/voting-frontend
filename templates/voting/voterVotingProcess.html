@@ -170,7 +170,7 @@
 								</ol>
 							</div>
 									
-									<form class="login100-form validate-form" action="" method="POST">
+									<form class="login100-form validate-form" id="voting-form" action="" method="POST">
 											{% csrf_token%}
 									<div class="card shadow">
 										<div class="card-header">
@@ -195,7 +195,7 @@
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="form-label">Enter Reference Number</label>
-														<input type="text" class="form-control" name="reference_number" placeholder="Reference Number">
+														<input type="text" class="form-control" name="reference_number" id="reference_number" placeholder="Reference Number">
 													</div>
 													
 												</div>
@@ -258,6 +258,12 @@
 		function logout() {
 			document.getElementById('logout').submit();
 		}
+
+		$("#submitBtn").click(function(e){
+			e.preventDefault();
+			localStorage.setItem("reference_number",$("#reference_number").val());
+			$('#voting-form').submit();
+		});
 	</script>
 
 </body>
