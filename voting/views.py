@@ -89,11 +89,11 @@ def results(request):
         for queryset in querysets:
             if key == queryset.candidate_publickey:
                 winner.append({
-                       name: queryset.candidate_name,
-                        votes: value
+                        'name': queryset.candidate_name,
+                        'votes': value
                 })
-    for el in winner:
-        print(el['name'] + " - " + el['votes'])
+    # for el in winner:
+    #    # print(el['name'] + " - " + el['votes'])
     context= {
         'winner' : winner,
         'winner_counts': winner_counts
